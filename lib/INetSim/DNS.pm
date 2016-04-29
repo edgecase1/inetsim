@@ -249,15 +249,30 @@ sub dns_reply_handler {
 }
 
 
+
+sub getRandomIP
+{
+    return join(".", (int(rand(255)), int(rand(255)), int(rand(255)), int(rand(255))));
+}
+
+my %IPs = ();
+
 sub getIP {
     my $hostname = lc(shift);
 
     my %static_host_to_ip = &INetSim::Config::getConfigHash("DNS_StaticHostToIP");
 
     if (defined $static_host_to_ip{$hostname}) {
-	return $static_host_to_ip{$hostname};
+       return $static_host_to_ip{$hostname};
+    }
+    elsif(exists $IPs{$hostname}){
+        return $IPs{$hostname};
     }
     else {
+         my $ip = getRandomIP();
+         $IPs{$hostname} = $ip;
+         return $ip;
+    }
 	return &INetSim::Config::getConfigParameter("DNS_Default_IP");
     }
 }
