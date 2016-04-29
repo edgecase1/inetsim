@@ -1,0 +1,5 @@
+
+This is the default text document for INetSim HTTP server fake mode.
+
+This file is plain text.
+

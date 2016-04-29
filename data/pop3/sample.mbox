@@ -1,0 +1,120 @@
+From user@real-world.com  Sun Apr 29 12:15:30 2007
+Return-Path: <user@real-world.com>
+Delivered-To: foo.bar@inetsim.org
+Message-ID: <46347093.5071984@localhost>
+Date: Sun, 29 Apr 2007 12:15:30 +0200
+From: Sample User <user@real-world.com>
+User-Agent: Mutt/1.5.18 (2008-05-17)
+MIME-Version: 1.0
+To: foo.bar@inetsim.org
+Subject: INetSim test mail
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+This is an INetSim POP3 test mail...
+
+
+From user@real-world.com  Sun Apr 29 12:16:55 2007
+Return-Path: <user@real-world.com>
+Delivered-To: foo.bar@inetsim.org
+Message-ID: <46347093.5070904@localhost>
+Date: Sun, 29 Apr 2007 12:16:51 +0200
+From: Sample User <user@real-world.com>
+User-Agent: Thunderbird 1.5.0.7 (X11/20060915)
+MIME-Version: 1.0
+To: foo.bar@inetsim.org
+Subject: INetSim test mail with attachment
+Content-Type: multipart/alternative;
+ boundary="------------020805090207040402060004"
+
+This is a multi-part message in MIME format.
+--------------020805090207040402060004
+Content-Type: text/plain; charset=ISO-8859-15; format=flowed
+Content-Transfer-Encoding: 7bit
+
+
+This is an INetSim POP3 test mail with attachment...
+
+
+--------------020805090207040402060004
+Content-Type: multipart/related;
+ boundary="------------020508000409000306080707"
+
+
+--------------020508000409000306080707
+Content-Type: text/html; charset=ISO-8859-15
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html;charset=ISO-8859-15"
+ http-equiv="Content-Type">
+  <title></title>
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<h3>This is an INetSim POP3 test mail with attachment...</h3>
+<br>
+<br>
+<img alt="" src="cid:part1.09080805.02010507@localhost" height="150"
+ width="200"><br>
+<br>
+</body>
+</html>
+
+--------------020508000409000306080707
+Content-Type: image/gif;
+ name="sample.gif"
+Content-Transfer-Encoding: base64
+Content-ID: <part1.09080805.02010507@localhost>
+Content-Disposition: inline;
+ filename="sample.gif"
+
+R0lGODlhyACWAOesAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0N
+DQ4ODg8PDxAQEBISEhMTExQUFBUVFRYWFhcXFxgYGBoaGhsbGxwcHB0dHSAgICEhISIiIiMj
+IyQkJCYmJicnJygoKCkpKSoqKisrKzAwMDExMTIyMjMzMzQ0NDU1NTY2Njc3Nzg4ODk5OTo6
+Ojs7O0FBQUJCQkNDQ0REREVFRUZGRkhISElJSUxMTE5OTk9PT1BQUFFRUVJSUlZWVldXV1tb
+W1xcXF5eXmFhYWVlZWZmZmdnZ2hoaGpqamxsbG1tbW9vb3Nzc3R0dH19fX5+foCAgIWFhYaG
+hoeHh4mJiYqKiouLi4yMjI6Ojo+Pj5KSkpOTk5eXl52dnZ+fn6KioqOjo6SkpKWlpaampqen
+p6ioqKmpqaurq6ysrK2tra+vr7CwsLGxsbKysrOzs7S0tLa2tre3t7i4uLm5ubu7u8DAwMTE
+xMbGxsfHx8jIyMnJycrKysvLy83Nzc7Ozs/Pz9HR0dLS0tPT09TU1NXV1dfX19jY2NnZ2dra
+2tvb29zc3N3d3d7e3t/f3+Dg4OHh4ePj4+Tk5Obm5ujo6Orq6uvr6+zs7O3t7e7u7u/v7/Dw
+8PHx8fLy8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v//////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+/////////////////////////////////yH+FUNyZWF0ZWQgd2l0aCBUaGUgR0lNUAAsAAAA
+AMgAlgAACP4AAQgcSLCgwYMIEypcyLChw4cQI0qcSLGixYsYM2rcyLGjx48gQ4ocSbKkyZMo
+U6pcybKly5cwY8qcSbOmzZs4c+rcybOnz59AgwodSrSo0aNIkypdyrSp06dQo0qdSrWq1atY
+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
+--------------020508000409000306080707--
+
+--------------020805090207040402060004--

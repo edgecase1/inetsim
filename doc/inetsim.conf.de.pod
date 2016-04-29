@@ -1,0 +1,432 @@
+=pod
+
+
+=head1 NAME
+
+inetsim.conf - Konfigurationsdatei fuer INetSim
+
+
+=head1 BESCHREIBUNG
+
+I<inetsim.conf> ist die Konfigurationsdatei fuer B<inetsim>(1).
+
+Das Format von I<inetsim.conf> ist simpel: eine Option pro Zeile,
+wobei Leerzeilen und Zeilen, die mit # beginnen, ignoriert werden.
+
+
+=head1 GLOBALE OPTIONEN
+
+=over 4
+
+=item I<start_service DIENST>
+
+Startet den Dienst DIENST.
+
+=item I<service_bind_address IP-ADRESSE>
+
+Angabe der IP-Adresse, auf welcher die Dienste lauschen sollen.
+
+=item I<service_run_as_user BENUTZER>
+
+Angabe des Benutzers, unter welchem die Dienste laufen sollen.
+
+=item I<service_max_childs ANZAHL>
+
+Angabe der maximalen Anzahl der gestarteten Kindprozesse (Anzahl
+paralleler Verbindungen) fuer jeden Dienst.
+
+=item I<service_timeout SEKUNDEN>
+
+Angabe der Zeit in Sekunden, nach welcher inaktive Verbindungen
+geschlossen werden.
+
+=item I<[Dienstname]_bind_port PORT>
+
+Angabe des Ports fuer den angegebenen Dienst.
+
+=item I<create_reports [YES|NO]>
+
+Erstelle einen Report mit einer Zusammenfassung der Verbindungen
+der Sitzung beim Beenden von INetSim.
+
+=item I<report_language SPRACHKUERZEL>
+
+Erstelle Reports in der angegebenen Sprache.
+
+
+=back
+
+
+=head1 FAKETIME OPTIONEN
+
+=over 4
+
+
+=item I<faketime_init_delta SEKUNDEN>
+
+Angabe der anfaenglichen Zeitdifferenz in Sekunden (positiv oder
+negativ) relativ zum aktuellen Datum bzw. zur aktuellen Uhrzeit. Die
+Zeitdifferenz wird von allen Diensten beruecksichtigt. Ist
+dieser Wert auf '0' gesetzt, wird das aktuelle Datum bzw. die
+aktuelle Uhrzeit verwendet.
+
+=item I<faketime_auto_delay SEKUNDEN>
+
+Angabe der Zeitverzoegerung in Sekunden, nach welcher die Zeitdifferenz
+regelmaessig entsprechend dem bei B<faketime_auto_increment>
+eingestellten Wert erhoeht oder verringert wird. Ein Wert von '0'
+schaltet diese Funktion ab.
+
+=item I<faketime_auto_increment SEKUNDEN>
+
+Angabe der Schrittweite in Sekunden, um welche die Zeit in
+regelmaessigen Abstaenden erhoeht oder verringert wird.
+Diese Option ist nur wirksam, wenn bei B<faketime_auto_delay> die
+Zeitverzoegerung eingeschaltet ist (nicht auf '0' gesetzt).
+
+
+=back
+
+
+=head1 ZUSAETZLICHE DNS OPTIONEN
+
+=over 4
+
+
+=item I<dns_default_ip IP-ADRESSE>
+
+IP-Adresse, die als Standard in DNS-Antworten zurueckgegeben wird.
+
+=item I<dns_default_hostname HOSTNAME>
+
+Hostname, der als Standard in DNS-Antworten zurueckgegeben wird.
+
+=item I<dns_default_domainname DOMAINNAME>
+
+Domainname, der als Standard in DNS-Antworten zurueckgegeben wird.
+
+=item I<dns_static FQDN_HOSTNAME IP-ADRESSE>
+
+Abbilden statischer Eintraege fuer DNS.
+
+=item I<dns_version STRING>
+
+Versionsangabe, die zurueckgegeben wird.
+
+
+=back
+
+
+=head1 ZUSAETZLICHE HTTP(S) OPTIONEN
+
+=over 4
+
+
+=item I<http(s)_version STRING>
+
+Version, welche in HTTP-Antworten ausgegeben wird.
+
+=item I<http(s)_fakemode [YES|NO]>
+
+Schaltet fuer HTTP den Fake-Modus ein oder aus.
+
+=item I<http(s)_fakefile ERWEITERUNG DATEINAME MIMETYP>
+
+Angabe der Datei und des MIME-Typs, welche basierend auf der
+Dateierweiterung in der HTTP-Anfrage zurueckgegeben werden.
+
+=item I<http(s)_default_fakefile DATEINAME MIMETYP>
+
+Angabe der Standarddatei und des Standard-MIME-Typs, welche
+zurueckgegeben werden, wenn zur Dateierweiterung der HTTP-Anfrage
+kein passender Eintrag mit B<http_fakefile> definiert ist.
+
+=item I<http(s)_static_fakefile PFAD DATEINAME MIMETYP>
+
+Angabe der Datei und des MIME-Typs, welche basierend auf dem
+zugehoerigen Pfad in der HTTP-Anfrage zurueckgegeben werden.
+
+
+=back
+
+
+=head1 ZUSAETZLICHE SMTP(S) OPTIONEN
+
+=over 4
+
+
+=item I<smtp(s)_banner STRING>
+
+Angabe des Bannertextes, der in der SMTP-Grussmeldung benutzt wird.
+
+=item I<smtp(s)_fqdn_hostname FQDN_HOSTNAME>
+
+Angabe des FQDN-Hostnamens fuer SMTP.
+
+=item I<smtp(s)_helo_required [YES|NO]>
+
+Angabe, ob der Client HELO/EHLO vor allen anderen Kommandos senden muss.
+
+=item I<smtp(s)_extended_smtp>
+
+Schaltet die Unterstuetzung fuer 'Erweitertes SMTP' (ESMTP) ein oder aus.
+
+=item I<smtp(s)_service_extension ERWEITERUNG [PARAMETER]>
+
+SMTP 'service extensions', welche dem Client angeboten werden.
+
+=item I<smtp(s)_auth_reversibleonly [YES|NO]>
+
+Biete nur Authentifizierungsmechanismen an, die eine Rueckwandlung der vom
+Client gesendeten Authentifizierungsinformationen in einen Benutzernamen
+und ein Passwort im Klartext ermoeglichen.
+
+=item I<smtp(s)_auth_required [YES|NO]>
+
+Zwinge den Client zur Authentifizierung.
+
+
+=back
+
+
+=head1 ZUSAETZLICHE POP3(S) OPTIONEN
+
+=over 4
+
+
+=item I<pop3(s)_banner STRING>
+
+Angabe des Bannertextes, der in der POP3-Grussmeldung benutzt wird.
+
+=item I<pop3(s)_hostname HOSTNAME>
+
+Angabe des Hostnamens, der in der POP3-Grussmeldung benutzt wird.
+
+=item I<pop3(s)_mbox_maxmails ANZAHL>
+
+Maximale Anzahl der E-Mails, die aus den zur Verfuegung stehenden
+mbox-Dateien fuer die dynamische Erzeugung der POP3-Mailbox verwendet werden.
+
+=item I<pop3(s)_mbox_reread ANZAHL>
+
+Neueinlesen der zur Verfuegung stehenden mbox-Dateien, wenn der
+POP3-Dienst waehrend der angegebenen Anzahl an Sekunden nicht benutzt wurde.
+
+=item I<pop3(s)_mbox_rebuild ANZAHL>
+
+Neuerzeugung der POP3-Mailbox, wenn der POP3-Dienst waehrend der angegebenen
+Anzahl an Sekunden nicht benutzt wurde.
+
+=item I<pop3(s)_auth_reversibleonly [YES|NO]>
+
+Biete nur Authentifizierungsmechanismen an, die eine Rueckwandlung der vom
+Client gesendeten Authentifizierungsinformationen in einen Benutzernamen
+und ein Passwort im Klartext ermoeglichen.
+
+=item I<pop3(s)_enable_apop [YES|NO]>
+
+Schaltet die Unterstuetzung von APOP ein oder aus.
+
+=item I<pop3(s)_enable_capabilities [YES|NO]>
+
+Schaltet die Unterstuetzung von POP3 'capabilities' ein oder aus.
+
+=item I<pop3(s)_capability CAPABILITY [PARAMETER]>>
+
+POP3 'capabilities', die dem Client angeboten werden.
+
+
+=back
+
+
+=head1 ZUSAETZLICHE FTP(S) OPTIONEN
+
+=over 4
+
+
+=item I<ftp(s)_banner STRING>
+
+Angabe des Bannertextes, der in der FTP-Grussmeldung benutzt wird.
+
+=item I<ftp(s)_version STRING>
+
+Versionsangabe, die in Antworten auf das STAT-Kommando zurueckgegeben wird.
+
+=item I<ftp(s)_recursive_delete [YES|NO]>
+
+Erlaube das rekursive Loeschen von Verzeichnissen, auch wenn diese nicht leer sind.
+
+
+=back
+
+
+=head1 ADDITIONAL TFTP OPTIONS
+
+=over 4
+
+
+=item I<tftp_allow_overwrite [YES|NO]>
+
+Erlaube das Ueberschreiben vorhandener Dateien.
+
+=item I<tftp_enable_options [YES|NO]>
+
+Schaltet die Unterstuetzung von TFTP-Optionen ein oder aus.
+
+=item I<tftp_option OPTION PARAMETER>
+
+TFTP-Optionen, die dem Client angeboten werden.
+
+
+=back
+
+
+=head1 ZUSAETZLICHE NTP OPTIONEN
+
+=over 4
+
+
+=item I<ntp_server_ip IP-ADRESSE>
+
+Angabe der IP-Adresse, welche in NTP-Antworten zurueckgegeben wird.
+
+=item I<ntp_strict_checks [YES|NO]>
+
+Schaltet strenge Tests fuer Client-Pakete ein oder aus.
+
+
+=back
+
+
+=head1 ZUSAETZLICHE IRC OPTIONEN
+
+=over 4
+
+
+=item I<irc_fqdn_hostname FQDN_HOSTNAME>
+
+Angabe des FQDN-Hostnamens fuer IRC.
+
+=item I<irc_version STRING>
+
+Versionsangabe, die zurueckgegeben wird.
+
+
+=back
+
+
+=head1 ZUSAETZLICHE DUMMY OPTIONEN
+
+=over 4
+
+
+=item I<dummy_banner STRING>
+
+Bannertext, welcher an den Client gesendet wird, wenn dieser
+nach B<dummy_banner_wait> Sekunden seit Aufbau der Verbindung
+noch keine Daten gesendet hat. Bei Angabe eines Leerstrings ("")
+wird nur CRLF gesendet. Diese Option ist nur wirksam, wenn
+B<dummy_banner_wait> nicht auf den Wert '0' gesetzt ist.
+
+=item I<dummy_banner_wait ANZAHL>
+
+Wurden innerhalb dieser Anzahl von Sekunden nach Aufbau einer
+neuen Verbindung noch keine Daten vom Client empfangen, wird der
+Bannertext B<dummy_banner> gesendet. Ein Wert von '0' schaltet
+diese Funktion ab.
+
+
+=back
+
+
+=head1 REDIRECT OPTIONEN
+
+=over 4
+
+
+=item I<redirect_enabled [YES|NO]>
+
+Schaltet die Umleitung von Verbindungen ein oder aus.
+
+=item I<redirect_unknown_services [YES|NO]>
+
+Ist diese Option gesetzt, werden Verbindungen auf ungenutzte Ports zum
+Dummy-Dienst umgeleitet.
+
+=item I<redirect_external_address IP-ADRESSE>
+
+Angabe der IP-Adresse, welche als Quell-IP benutzt werden soll, wenn
+B<INetSim> Pakete wie ein Router in externe Netze weiterleitet.
+Die Angabe ist nur wirksam, wenn mittels B<redirect_static_rule>
+Regeln fuer die Umleitung von Paketen definiert sind.
+
+=item I<redirect_static_rule PROTOKOLL IP-ADRESSE:PORT IP-ADRESSE:PORT>
+
+Statische Regeln fuer die Umleitung von Verbindungen.
+
+=item I<redirect_change_ttl [YES|NO]>
+
+Aendert das Time-To-Live-Feld in ausgehenden IP-Paketen auf einen
+zufaelligen Wert.
+
+=item I<redirect_exclude_port PROTOKOLL:PORT>
+
+Verbindungen zu <service_bind_address> auf diesen Port
+werden nicht umgeleitet.
+
+=item I<redirect_ignore_bootp [YES|NO]>
+
+Ist diese Option gesetzt, werden BOOTP (DHCP) Broadcasts nicht umgeleitet
+(UDP-Pakete von der Quell-Adresse 0.0.0.0, Port 68 an die Ziel-Adresse
+255.255.255.255, Port 67 und umgekehrt).
+
+=item I<redirect_ignore_netbios [YES|NO]>
+
+Ist diese Option gesetzt, werden NetBIOS Broadcasts nicht umgeleitet (UDP-Pakete
+mit Quell- und Ziel-Port 137/138 und Ziel-Adresse x.x.x.255 im lokalen Netz).
+
+=item I<redirect_icmp_timestamp [MS|SEC|NO]>
+
+Ist diese Option auf 'ms' gesetzt, werden ICMP-Timestamp-Anfragen mit der Anzahl von Millisekunden seit Mitternacht UTC entsprechend der Faketime beantwortet.
+Ist diese Option auf 'sec' gesetzt, werden ICMP-Timestamp-Anfragen mit der Anzahl von Sekunden seit der 'Epoche' beantwortet. Dabei wird das hoechstwertige Bit des Zeitstempels gesetzt, um einen Nicht-Standard-Wert zu signalisieren.
+Ist diese Option auf 'no' gesetzt, werden ICMP-Timestamp-Anfragen nicht veraendert.
+
+=back
+
+
+=head1 SSL OPTIONEN
+
+=over 4
+
+=item I<[Dienstname]_ssl_keyfile DATEINAME>
+
+Name der PEM-Datei, welche den privaten SSL-Schluessel enthaelt.
+Der Schluessel darf nicht mit einem Passwort geschuetzt sein!
+
+=item I<[Dienstname]_ssl_certfile DATEINAME>
+
+Name der Datei, welche das SSL-Zertifikat enthaelt.
+
+=item I<[Dienstname]_ssl_dhfile DATEINAME>
+
+Name der PEM-Datei mit Diffie-Hellman-Parametern.
+
+=back
+
+
+=head1 SIEHE AUCH
+
+=over 4
+
+
+B<inetsim>(1)
+
+=back
+
+
+=head1 AUTOREN
+
+S<Matthias Eckert> E<lt>S<me@inetsim.org>E<gt>, 
+S<Thomas Hungenberg> E<lt>S<th@inetsim.org>E<gt>
+
+=cut

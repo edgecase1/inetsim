@@ -1,0 +1,417 @@
+=pod
+
+
+=head1 NAME
+
+inetsim.conf - Configuration file for INetSim
+
+
+=head1 DESCRIPTION
+
+I<inetsim.conf> is the configuration file for B<inetsim>(1).
+
+The format of I<inetsim.conf> is simple: one option per line, with blank
+lines and lines starting with # ignored.
+
+
+=head1 GLOBAL OPTIONS
+
+=over 4
+
+=item I<start_service SERVICE>
+
+Start service SERVICE.
+
+=item I<service_bind_address ADDRESS>
+
+The IP address to bind services to.
+
+=item I<service_run_as_user USER>
+
+User to run services.
+
+=item I<service_max_childs NUMBER>
+
+Maximum number of child processes (number of parallel
+connections) for each service.
+
+=item I<service_timeout SECONDS>
+
+Timeout in seconds after which a connection is closed
+by the service.
+
+=item I<[servicename]_bind_port PORT>
+
+PORT number to bind service to.
+
+=item I<create_reports [YES|NO]>
+
+Create report with a summary of connections for the session on shutdown.
+
+=item I<report_language LANGUAGE>
+
+Set language for reports.
+
+
+=back
+
+
+=head1 FAKETIME OPTIONS
+
+=over 4
+
+
+=item I<faketime_init_delta SECONDS>
+
+Initial number of seconds (positive or negative) relative to current
+date/time for fake time used by all services. If set to '0', current
+date/time is used.
+
+=item I<faketime_auto_delay SECONDS>
+
+Number of seconds to wait before incrementing/decrementing fake time
+by amount of seconds specified with B<faketime_auto_increment>.
+Setting to '0' disables this option.
+
+=item I<faketime_auto_increment SECONDS>
+
+Number of seconds by which fake time is incremented/decremented at regular
+intervals specified by B<faketime_auto_delay>.
+This option only takes effect if B<faketime_auto_delay> is enabled (not set
+to '0').
+
+
+=back
+
+
+=head1 ADDITIONAL DNS OPTIONS
+
+=over 4
+
+
+=item I<dns_default_ip IP-ADDRESS>
+
+Default IP address to return in DNS replies.
+
+=item I<dns_default_hostname HOSTNAME>
+
+Default hostname to return in DNS replies.
+
+=item I<dns_default_domainname DOMAINNAME>
+
+Default domainname to return in DNS replies.
+
+=item I<dns_static FQDN_HOSTNAME IP-ADDRESS>
+
+Static mapping for DNS.
+
+=item I<dns_version STRING>
+
+Version string to return.
+
+
+=back
+
+
+=head1 ADDITIONAL HTTP(S) OPTIONS
+
+=over 4
+
+
+=item I<http(s)_version>
+
+Version string to return in HTTP(S) replies.
+
+=item I<http(s)_fakemode [YES|NO]>
+
+Turn HTTP(S) fake mode on or off.
+
+=item I<http(s)_fakefile EXTENSION FILENAME MIMETYPE>
+
+The fake files returned in fake mode based on the file extension in the HTTP(S) request.
+
+=item I<http(s)_default_fakefile FILENAME MIMETYPE>
+
+The default fake file and MIME type returned in fake mode if the file extension in the
+HTTP(S) request does not match any of the extensions defined with B<http(s)_fakefile>.
+
+=item I<http(s)_static_fakefile PATH FILENAME MIMETYPE>
+
+The fake files returned in fake mode based on the path in the HTTP(S) request.
+
+
+=back
+
+
+=head1 ADDITIONAL SMTP(S) OPTIONS
+
+=over 4
+
+
+=item I<smtp(s)_banner STRING>
+
+The banner string used in SMTP greeting message.
+
+=item I<smtp(s)_fqdn_hostname FQDN_HOST>
+
+The FQDN hostname used for SMTP.
+
+=item I<smtp(s)_helo_required [YES|NO]>
+
+Client has to send HELO/EHLO before any other command.
+
+=item I<smtp(s)_extended_smtp>
+
+Turn support for 'Extended SMTP' (ESMTP) on or off.
+
+=item I<smtp(s)_service_extension EXTENSION [PARAMETER(S)]>
+
+SMTP service extensions offered to client.
+
+=item I<smtp(s)_auth_reversibleonly [YES|NO]>
+
+Only offer authentication mechanisms which allow reversing the authentication information
+sent by a client to clear text username/password.
+
+=item I<smtp(s)_auth_required [YES|NO]>
+
+Force the client to authenticate.
+
+
+=back
+
+
+=head1 ADDITIONAL POP3(S) OPTIONS
+
+=over 4
+
+
+=item I<pop3(s)_banner STRING>
+
+The banner string used in POP3 greeting message.
+
+=item I<pop3(s)_hostname HOST>
+
+The hostname used in POP3 greeting message.
+
+=item I<pop3(s)_mbox_maxmails NUMBER>
+
+Maximum number of e-mails to select from supplied mbox files for creation of random POP3 mailbox.
+
+=item I<pop3(s)_mbox_reread NUMBER>
+
+Re-read supplied mbox files if POP3 service was inactive for <NUMBER> seconds.
+
+=item I<pop3(s)_mbox_rebuild NUMBER>
+
+Rebuild random POP3 mailbox if POP3 service was inactive for <NUMBER> seconds.
+
+=item I<pop3(s)_auth_reversibleonly [YES|NO]>
+
+Only offer authentication mechanisms which allow reversing the authentication information
+sent by a client to clear text username/password.
+
+=item I<pop3(s)_enable_apop [YES|NO]>
+
+Turn APOP on or off.
+
+=item I<pop3(s)_enable_capabilities [YES|NO]>
+
+Turn support for pop3 capabilities on or off.
+
+=item I<pop3(s)_capability CAPABILITY [PARAMETER(S)]>
+
+POP3 capabilities offered to client.
+
+
+=back
+
+
+=head1 ADDITIONAL FTP(S) OPTIONS
+
+=over 4
+
+
+=item I<ftp(s)_banner STRING>
+
+The banner string used in FTP greeting message.
+
+=item I<ftp(s)_version STRING>
+
+Version string to return in replies to the STAT command.
+
+=item I<ftp(s)_recursive_delete [YES|NO]>
+
+Allow recursive deletion of directories, even if they are not empty.
+
+
+=back
+
+
+=head1 ADDITIONAL TFTP OPTIONS
+
+=over 4
+
+
+=item I<tftp_allow_overwrite [YES|NO]>
+
+Allow overwriting of existing files.
+
+=item I<tftp_enable_options [YES|NO]>
+
+Turn support for tftp options on or off.
+
+=item I<tftp_option OPTION PARAMETER(S)>
+
+TFTP options offered to client.
+
+
+=back
+
+
+=head1 ADDITIONAL NTP OPTIONS
+
+=over 4
+
+
+=item I<ntp_server_ip IP-ADDRESS>
+
+The IP address to return in NTP replies.
+
+=item I<ntp_strict_checks [YES|NO]>
+
+Turn strict checks for client packets on or off.
+
+
+=back
+
+
+=head1 ADDITIONAL IRC OPTIONS
+
+=over 4
+
+
+=item I<irc_fqdn_hostname FQDN_HOST>
+
+The FQDN hostname used for IRC.
+
+=item I<irc_version STRING>
+
+Version string to return.
+
+
+=back
+
+
+=head1 ADDITIONAL DUMMY OPTIONS
+
+=over 4
+
+
+=item I<dummy_banner STRING>
+
+Banner string sent to client if no data has been received for
+B<dummy_banner_wait> seconds since the client has established
+the connection. If set to an empty string (""), only CRLF will
+be sent. This option only takes effect if B<dummy_banner_wait>
+is not set to '0'.
+
+=item I<dummy_banner_wait NUMBER>
+
+Number of seconds to wait for client sending any data after
+establishing a new connection. If no data has been received
+within this amount of time, B<dummy_banner> will be sent to
+the client. Setting to '0' disables sending of a banner string.
+
+
+=back
+
+
+=head1 REDIRECT OPTIONS
+
+=over 4
+
+
+=item I<redirect_enabled [YES|NO]>
+
+Turn connection redirection on or off.
+
+=item I<redirect_unknown_services [YES|NO]>
+
+Redirect connection attempts to unbound ports to dummy service.
+
+=item I<redirect_external_address IP-ADDRESS>
+
+IP address used as source address if B<INetSim> acts as a router for redirecting packets to external
+networks.
+This option only takes effect if static rules for redirecting packets to external networks are
+defined (see B<redirect_static_rule>).
+
+=item I<redirect_static_rule PROTOCOL IP-ADDRESS:PORT IP-ADDRESS:PORT>
+
+Static mappings for connection redirection.
+
+=item I<redirect_change_ttl [YES|NO]>
+
+Change the time-to-live header field to a random value in outgoing IP packets.
+
+=item I<redirect_exclude_port PROTOCOL:PORT>
+
+Connections to <service_bind_address> on this port
+are not redirected.
+
+=item I<redirect_ignore_bootp [YES|NO]>
+
+If set to 'yes', BOOTP (DHCP) broadcasts will not be redirected (UDP packets with source
+address 0.0.0.0, port 68 and destination address 255.255.255.255, port 67 or vice versa).
+
+=item I<redirect_ignore_netbios [YES|NO]>
+
+If set to 'yes', NetBIOS broadcasts will not be redirected (UDP packets with
+source/destination port 137/138 and destination address x.x.x.255 on the local network).
+
+=item I<redirect_icmp_timestamp [MS|SEC|NO]>
+
+If set to 'ms', ICMP Timestamp requests will be answered with number of milliseconds since midnight UTC according to faketime.
+If set to 'sec', ICMP Timestamp requests will be answered with number of seconds since epoch (high order bit of the timestamp will be set to indicate non-standard value).
+Setting to 'no' disables manipulation of ICMP Timestamp requests.
+
+=back
+
+
+=head1 SSL OPTIONS
+
+=over 4
+
+=item I<[servicename]_ssl_keyfile FILENAME>
+
+Name of the SSL private key PEM file. The key MUST NOT be encrypted!
+
+=item I<[servicename]_ssl_certfile FILENAME>
+
+Name of the SSL certificate file.
+
+=item I<[servicename]_ssl_dhfile FILENAME>
+
+Name of the Diffie-Hellman parameter PEM file.
+
+
+=back
+
+
+=head1 SEE ALSO
+
+=over 4
+
+
+B<inetsim>(1)
+
+=back
+
+
+=head1 AUTHOR
+
+S<Matthias Eckert> E<lt>S<me@inetsim.org>E<gt>, 
+S<Thomas Hungenberg> E<lt>S<th@inetsim.org>E<gt>
+
+=cut

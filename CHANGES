@@ -1,0 +1,128 @@
+1.2.5 (2014-05-24)
+------------------
+- Fixed incompatibility issue with newer versions of IO::Socket::SSL
+- Fixed incompatibility issue with some NTP clients
+- Set HTTP(S) POST data directory correctly if '--data-dir' command
+  line option is used
+
+
+1.2.4 (2013-08-15)
+------------------
+- Fixed broken report module
+
+
+1.2.3 (2012-10-01)
+------------------
+- Changed Debian package dependency from Digest::SHA1 to Digest::SHA
+- Changed process name format
+
+
+1.2.2 (2010-11-24)
+------------------
+- DNS:
+  - added check for broken version 0.65 of Net::DNS
+- HTTP:
+  - added support for static fakefiles
+  - some bugfixes with HTTPS fakemode
+
+
+1.2.1 (2010-07-09)
+------------------
+- POP3: fixed a small typo that caused the module to be practically unusable
+
+
+1.2 (2010-04-25)
+----------------
+- new service module: IRC
+  - basic command set
+- SMTP:
+  - added SSL support (smtps)
+  - added support for service extension STARTTLS
+  - added support for enforced authentication
+- POP3:
+  - added SSL support (pop3s)
+  - added support for capabilities STLS, TOP, IMPLEMENTATION, LOGIN-DELAY, EXPIRE,
+    RESP-CODES and AUTH-RESP-CODE
+- HTTP:
+  - added SSL support (https)
+- FTP:
+  - added SSL support (ftps)
+- TFTP:
+  - added support for TFTP options 'blksize', 'timeout' and 'tsize'
+  - added virtual file system
+- Redirect:
+  - added support for ICMP
+- some minor bugfixes
+
+
+1.1.1 (2009-09-09)
+------------------
+- FTP: always re-read content of static ftp root directory on startup
+- SMTP: set 'Return-Path' to '<>' for MAILER-DAEMON messages,
+        replaced header 'Delivered-To' with 'Envelope-To'
+- POP3: fixed logging of non-printable characters
+- some minor bugfixes
+
+
+1.1 (2008-10-12)
+----------------
+- new service module: FTP
+- new service module: Syslog
+- added support for HTTP methods POST and OPTIONS
+- added support for port numbers in HTTP 'Host' header and absoluteURI
+- changed SMTP HELO/EHLO response
+- added support for SMTP service extensions ENHANCEDSTATUSCODES,
+  SEND, SAML, SOML, TURN, ETRN, ATRN, MTRK, BINARYMIME,
+  CHUNKING, DELIVERBY, SUBMITTER, CHECKPOINT, NO-SOLICITING, FUTURERELEASE
+- added configuration options 'dummy_banner' and 'dummy_banner_wait'
+- added configuration options 'redirect_ignore_bootp' and 'redirect_ignore_netbios'
+- added configuration options 'create_reports' and 'report_language'
+- changed format of service logfile to include service child process id
+- changed default value for 'service_timeout' to 120 seconds
+- install script 'set_permissions.sh' renamed to 'setup.sh'
+
+
+1.0 (2008-07-07)
+----------------
+- changed default setting for configuration option 'redirect_enabled' to 'no'
+
+
+1.0rc4 (2008-06-29)
+-------------------
+- Perl library Net::Server is no longer included with the INetSim distribution
+- added 'dummy' service module (just logs all received data)
+- added 'redirect' feature:
+  - uses Linux kernel IP_QUEUE, so only available on Linux platforms
+  - allows for IP-based connection redirection (tcp/udp)
+  - supports static rules for redirection based on target IP address, port and/or protocol
+  - can act as a NAT router for redirection of packets to other hosts
+  - optionally varies the TTL value of IP packets sent to the clients from different
+    "virtual" connection targets to make traffic look more authentic
+- DNS.pm: added handling of AAAA queries (returns empty answer with status 'NOERROR')
+- SMTP.pm: add 'Received:' headers to messages
+- HTTP.pm: improved Request-URI parsing, now supports absolute URIs
+- NTP.pm: added configuration option for less strict checks
+- added timeout handling for all service modules
+- removed 'bind_address' configuration options for individual services
+- some minor bugfixes
+
+
+1.0rc3 (2007-12-12)
+-------------------
+- added 'finger' service module
+- added configuration option for SMTP and POP3 to select if only
+  reversible or all supported authentication mechanisms are offered
+- added support for SMTP extensions DSN, ETRN, EXPN, HELP and VERP
+
+
+1.0rc2 (2007-10-21)
+-------------------
+- added TFTP service module
+- added POP3 configuration options pop3_mbox_maxmails, pop3_mbox_reread
+  and pop3_mbox_rebuild
+- added sample SPAM mbox file for POP3
+
+
+1.0rc1 (2007-10-17)
+-------------------
+- first public release

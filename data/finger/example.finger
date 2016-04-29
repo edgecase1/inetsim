@@ -1,0 +1,23 @@
+Login: root                             Name: Administrator
+Directory: /root                        Shell: /bin/sh
+Last login Tue May 22 07:24 (GMT) on tty1
+No mail.
+No Plan.
+===
+Login: foo                              Name: Foo Bar
+Directory: /home/foo                    Shell: /bin/false
+Never logged in.
+No mail.
+No Plan.
+===
+Login: john                             Name: John Doe
+Directory: /home/john                   Shell: {SHELL}
+Last login {DATETIME} on {TTY} (messages off)
+No mail.
+No Plan.
+===
+Login: inetsim                          Name: INetSim
+Directory: /opt/inetsim                 Shell: /bin/false
+Never logged in.
+No mail.
+No Plan.

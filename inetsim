@@ -1,0 +1,25 @@
+#! /usr/bin/perl -Tw
+#
+# inetsim - Startup script for the INetSim internet simulation
+#
+# Copyright (c) 2007-2014 Thomas Hungenberg & Matthias Eckert
+#
+# See the file README for more information.
+#
+################################################################
+
+# Installation path of INetSim packages
+use lib "./lib";
+
+################################################################
+# NO USER CONFIGURATION BELOW
+################################################################
+
+use strict;
+use warnings;
+use INetSim;
+
+&INetSim::main();
+
+exit 0;
+#

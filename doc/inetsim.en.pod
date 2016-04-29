@@ -1,0 +1,131 @@
+=pod
+
+
+=head1 NAME
+
+B<inetsim> - INetSim is a suite for simulating common internet services
+
+
+=head1 SYNOPSIS
+
+B<inetsim>
+[B<--config> <I<configuration file>>]
+[B<--version>]
+[B<--data-dir> <I<data directory>>]
+[B<--log-dir> <I<log directory>>]
+[B<--report-dir> <I<report directory>>]
+[B<--bind-address> <I<ip address>>]
+[B<--max-childs> <I<maximum child processes>>]
+[B<--user> <I<user name>>]
+[B<--faketime-init-delta> <I<initial time delta>>]
+[B<--faketime-auto-delay> <I<delay time>>]
+[B<--faketime-auto-incr> <I<stepwidth>>]
+[B<--session> <I<session name>>]
+[B<--pidfile> <I<pid file>>]
+
+
+=head1 DESCRIPTION
+
+B<INetSim> simulates common internet services like
+I<DNS>, I<HTTP>, I<SMTP> or I<POP3>.
+
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--config> <I<configuration file>>
+
+The configuration file to use, default is conf/inetsim.conf in the current directory.
+
+=item B<--version>
+
+Output version information.
+
+=item B<--data-dir> <I<data directory>>
+
+The data directory to use, default is data/ in the current directory.
+
+=item B<--log-dir> <I<log directory>>
+
+The log directory to use, default is log/ in the current directory.
+
+=item B<--report-dir> <I<report directory>>
+
+The report directory to use, default is report/ in the current directory.
+
+=item B<--bind-address> <I<IP address>>
+
+The IP address to bind services to.
+
+=item B<--max-childs> <I<maximum child processes>>
+
+The maximum number of child processes (number of parallel connections) for
+each service. Default is 10.
+
+=item B<--user> <I<username>>
+
+User to run services. Default is 'nobody'.
+
+=item B<--faketime-init-delta> <I<initial time delta>>
+
+Initial number of seconds (positive or negative) relative to current
+date/time for fake time used by all services. This overrides the
+option 'faketime-init-delta' in the configuration file.
+Default is 0 (use current date/time).
+
+=item B<--faketime-auto-delay> <I<delay time>>
+
+Number of seconds to wait before incrementing or decrementing fake time
+by amount of seconds specified with B<faketime-auto-incr>.
+Setting to '0' disables this option. This overrides the option
+'faketime-auto-delay' in the configuration file.
+Default is 0 (disabled).
+
+=item B<--faketime-auto-incr> <I<stepwidth>>
+
+Number of seconds by which fake time is incremented or decremented at
+regular intervals specified by B<faketime_auto_delay>. This option only
+takes effect if B<faketime-auto-delay> is enabled (not set to '0').
+This overrides the option 'faketime-auto-incr' in the configuration file.
+Default is 3600.
+
+=item B<--session> <I<session name>>
+
+Session name to use, default is the PID of the parent process.
+
+=item B<--pidfile> <I<pid file>>
+
+The pid file to use, default is /var/run/inetsim.pid.
+
+=back
+
+
+=head1 EXAMPLES
+
+Start the simulation with session name 'simtest5'
+
+	# inetsim --session simtest5
+
+Start the simulation with a one-day-jump to the future after 60 seconds
+
+	# inetsim --faketime-auto-delay 60 --faketime-auto-incr 86400
+
+dito, but with jump to the past
+
+	# inetsim --faketime-auto-delay 60 --faketime-auto-incr -86400
+
+
+=head1 REQUIRES
+
+Perl 5, Getopt::Long, Net::Server, Net::DNS, IO::Handle, IO::Socket,
+IO::Select, IPC::Shareable, Digest::SHA, File::Copy, MIME::Base64,
+IPTables::IPv4::IPQueue (optional)
+
+
+=head1 AUTHOR
+
+S<Matthias Eckert> E<lt>S<me@inetsim.org>E<gt>, 
+S<Thomas Hungenberg> E<lt>S<th@inetsim.org>E<gt>
+
+=cut

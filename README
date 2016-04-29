@@ -1,0 +1,276 @@
+----------------------------------------------------------------------
+    This is free software; you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License , or
+    (at your option) any later version.
+
+    This software is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this software. If not, write to the Free Software
+    Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+----------------------------------------------------------------------
+
+
+1. DESCRIPTION
+--------------
+
+INetSim is a software suite for simulating common internet services
+in a lab environment, e.g. for analyzing the network behaviour of
+unknown malware samples.
+
+
+1.1 Implemented service modules
+
+Currently, modules for the simulation of the following services
+are included with the INetSim distribution:
+
+- HTTP/HTTPS
+  - "real-mode": Delivers existing files from a webroot directory.
+  - "fake-mode": Delivers configured fake files based on the file extension
+                 in the HTTP request (e.g. .html or .exe) or static paths,
+                 Requests for checkip.dyndns.org are answered with
+                 client's IP address
+  - supports HTTP methods GET, HEAD, POST and OPTIONS with HTTP/1.0 and HTTP/1.1
+- SMTP/SMTPS
+  - received e-mails are stored in mbox format
+  - supports ESMTP and flexible configuration of service extensions
+  - supports authentication methods PLAIN, LOGIN, ANONYMOUS, CRAM-MD5 and CRAM-SHA1
+  - arbitrary authentication data is accepted and logged in plain text
+- POP3/POP3S
+  - dynamic creation of mailbox content from supplied mbox files
+  - supports authentication methods PLAIN, LOGIN and CRAM-MD5
+  - arbitrary authentication data is accepted and logged in plain text
+- DNS
+  - forward and reverse lookup with default and static configuration
+- FTP/FTPS
+  - download and upload
+  - builds a virtual filesystem based on an existing ftproot directory
+    which allows for creation and deletion of arbitrary files
+- TFTP
+  - download and upload
+- IRC
+  - basic command set
+- NTP
+- Ident
+- Finger
+- Syslog
+- "Small servers":
+  - Daytime,
+  - Time,
+  - Echo,
+  - Chargen,
+  - Discard and
+  - Quotd
+- Dummy
+
+The listening port number can be configured for each service.
+
+
+1.2 Faketime
+
+INetSim can be run in 'faketime' mode to analyze the runtime behaviour
+of malware which use NTP or Time/Daytime to start specific actions based
+on the current date and time.
+
+In 'faketime' mode, all services using date/time information (e.g. NTP or
+HTTP) respond with a fake timestamp which is based on a configured delta
+to current system time. Optionally, this delta can automatically be
+incremented or decremented by a configured value at specific intervals.
+
+
+1.3 Connection redirection
+
+In addition to connection redirection via fake DNS responses, INetSim allows
+for IP-based redirection of arbitrary connections (tcp, udp and icmp).
+This feature is only available when running INetSim on Linux platforms
+with Kernel support for packet queueing (Kernel compile time option
+CONFIG_NETFILTER_NETLINK_QUEUE).
+
+This feature supports static rules for connection redirection based on
+target IP address, port and/or protocol. INetSim can also act as
+NAT router for redirection of packets to other hosts. Optionally,
+the TTL value of IP packets sent to the clients from different "virtual"
+connection targets can be varied to make traffic look more authentic.
+
+
+1.4 Dummy service
+
+The Dummy service simply logs all data received from the client.
+This module is most useful when used along with connection redirection
+to capture all traffic sent from the client to ports not bound to any
+other service module.
+
+Optionally, a configurable banner string can be sent if no data
+has been received for a given amount of time after the client
+established the connection. This might be useful e.g. while analyzing
+a malware which expects a POP3 or SMTP server on an unusual port.
+
+
+1.5 Logging and reports
+
+All incoming requests to the simulated services and the corresponding
+outgoing replies are logged in detail. When stopping an INetSim session,
+optionally an additional report for that session with a summary of the
+connections is created from the logfile.
+
+
+2. AVAILABILITY
+---------------
+
+You can get the latest version of INetSim from
+<http://www.inetsim.org>.
+
+
+3. PREREQUISITES
+----------------
+
+- POSIX compatible and System V IPC capable operating system (e.g. Linux)
+- Perl version 5.006 or more recent
+- Perl library Net::Server
+  (available from http://search.cpan.org/~rhandom/Net-Server/)
+- Perl library Net::DNS
+  (available from http://search.cpan.org/~olaf/Net-DNS/)
+- Perl library IPC::Shareable
+  (available from http://search.cpan.org/~bsugars/IPC-Shareable/)
+- Perl library Digest::SHA
+  (available from http://search.cpan.org/~mshelor/Digest-SHA/)
+- Perl library IO::Socket::SSL
+  (available from http://search.cpan.org/~sullr/IO-Socket-SSL/)
+- additionally, for IP-based connection redirection (only supported
+  on Linux platforms with Kernel support for packet queueing):
+  Perl library Perlipq
+  (available from http://search.cpan.org/~jmorris/perlipq/)
+
+INetSim has been developed and tested on Debian GNU/Linux 6.0 and
+Ubuntu 12.04 LTS. It has been reported to also run smoothly on
+current versions of Gentoo Linux, FreeBSD and OpenBSD.
+
+If you successfully run INetSim on any other platform, or if you
+experience problems running INetSim on platforms which meet the
+above mentioned requirements, please drop us a note at
+<inetsim at inetsim dot org>.
+
+
+4. INSTALLATION
+---------------
+
+Get the latest version of INetSim from
+<http://www.inetsim.org>.
+
+Make sure you have installed Perl and all required modules
+listed above.
+
+INetSim runs all services with privileges of the user specified
+in the configuration file (default: 'nobody'), so make sure
+this user exists on your system.
+INetSim runs all services with privileges of group 'inetsim',
+so you need to add a group with that name to your system.
+On a Linux system, this can be done by executing the command
+'groupadd inetsim' as root.
+
+Unpack the downloaded tarball to a directory of your choice
+(e.g. /opt/inetsim). Change into the top-level directory
+of the unpacked tarball and run the script 'setup.sh' as root.
+This will set some required permissions on files and
+directories of INetSim.
+
+
+5. CONFIGURATION
+----------------
+
+For a documentation of the configuration directives of INetSim,
+please refer to the manpage 'inetsim.conf' in subdirectory
+'man/man5' and the comments in the sample configuration file
+'conf/inetsim.conf' included with the INetSim distribution.
+
+
+6. USAGE
+--------
+
+To start INetSim, change into the top-level directory of the
+unpacked tarball and run the startup script 'inetsim' as root.
+
+For a documentation of the available command line options for the
+startup script, please refer to the manpage 'inetsim' included
+with the INetSim distribution in subdirectory 'man/man1'.
+
+INetSim requires root privileges to bind sockets to ports below 1024.
+After binding the sockets, root privileges are dropped as described
+in section 'Installation'.
+Currently, the INetSim startup script can only be run with root
+privileges, even if no ports below 1024 are configured to be used.
+This might change in future releases.
+
+!! IMPORTANT NOTE for users of OpenBSD/FreeBSD: !!
+
+The default maximum number of semaphore identifiers on OpenBSD/FreeBSD
+is 10. INetSim needs some more semaphore identifiers to run. So you
+have to raise the corresponding sysctl value (kern.seminfo.semmni on
+OpenBSD, kern.ipc.semmni on FreeBSD). A value of 20 should work.
+Otherwise INetSim will crash with an error message like
+"Could not create semaphore set: No space left on device" on startup.
+
+
+7.  ABOUT THE AUTHORS
+---------------------
+
+INetSim is developed by Thomas Hungenberg and Matthias Eckert.
+We both work in the field of IT security and part of our daily work
+is the analysis of unknown malware samples.
+
+
+8.  ABOUT THE PROJECT
+---------------------
+
+To perform a quick run-time analysis of the network behaviour of
+unknown malware samples, we were in need of a tool to simulate
+internet services which are commonly used by malware in our
+laboratory environment. We started off with a bunch of
+home-grown Perl scripts together with specially configured
+server service implementations like Apache, Postfix, dnsmasq and
+ntpd, but we were not happy with this because of a lot of
+disadvantages resulting from the combination of many programs
+(e.g. problems with correlation of log data).
+
+While talking to other security analysts, we noticed that there
+is definitely a need for a comfortable single suite to simulate
+different internet services with common logging and centralized
+control functions. So we decided to start the project 'INetSim'
+to develop such a suite.
+
+Due to lack of time at the office, the programming was done in
+our spare time. We both have been using Perl for many years but
+mostly for small scripts, e.g. for the analysis of logfiles.
+The project INetSim was a welcome opportunity to gain more
+practical experience in programming Perl and to deal with the
+specifications (RFCs) for several services in depth.
+
+We think INetSim might be useful for other security researchers
+as well and therefore decided to release it to the community as
+free software licensed under the GNU General Public License (GPL).
+
+Any feedback on your experiences with INetSim is appreciated.
+Please send your comments to <inetsim at inetsim dot org>.
+
+NOTE:
+As this is our first larger software project written in Perl,
+please do not be too harsh when you review the code.
+By now, we learned a lot more about using references, packages
+and object-oriented programming in Perl, so the design and code
+will be much better in our next project. ;-) 
+
+
+9. COPYRIGHT
+------------
+
+Copyright (c) 2007-2014 Thomas Hungenberg & Matthias Eckert
+
+This software is licensed under the GNU General Public License (GPL).
+For more information read the file COPYING which should be included
+with this distribution.
+
+----------------------------------------------------------------------

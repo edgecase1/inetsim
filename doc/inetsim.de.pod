@@ -1,0 +1,141 @@
+=pod
+
+
+=head1 NAME
+
+B<inetsim> - Programm zur Simulation von Internet-Diensten
+
+
+=head1 UEBERSICHT
+
+B<inetsim>
+[B<--config> <I<Konfigurationsdatei>>]
+[B<--version>]
+[B<--data-dir> <I<Datenverzeichnis>>]
+[B<--log-dir> <I<Logverzeichnis>>]
+[B<--report-dir> <I<Reportverzeichnis>>]
+[B<--bind-address> <I<IP-Adresse>>]
+[B<--max-childs> <I<maximale Anzahl der Kindprozesse>>]
+[B<--user> <I<Benutzername>>]
+[B<--faketime-init-delta> <I<anfaengliche Zeitdifferenz>>]
+[B<--faketime-auto-delay> <I<Zeitverzoegerung>>]
+[B<--faketime-auto-incr> <I<Schrittweite>>]
+[B<--session> <I<Name der Sitzung>>]
+[B<--pidfile> <I<PID-Datei>>]
+
+
+=head1 BESCHREIBUNG
+
+B<INetSim> simuliert gaengige Internet-Dienste wie
+I<DNS>, I<HTTP>, I<SMTP> oder I<POP3>.
+
+
+=head1 OPTIONEN
+
+=over 4
+
+=item B<--config> <I<Konfigurationsdatei>>
+
+Angabe einer alternativen Konfigurationsdatei.
+Standard ist conf/inetsim.conf im aktuellen Verzeichnis.
+
+=item B<--version>
+
+Ausgabe der Versionsinformation.
+
+=item B<--data-dir> <I<Datenverzeichnis>>
+
+Angabe eines alternativen Datenverzeichnisses.
+Standard ist data/ im aktuellen Verzeichnis.
+
+=item B<--log-dir> <I<Logverzeichnis>>
+
+Angabe eines alternativen Logverzeichnisses.
+Standard ist log/ im aktuellen Verzeichnis.
+
+=item B<--report-dir> <I<Reportverzeichnis>>
+
+Angabe eines alternativen Reportverzeichnisses.
+Standard ist report/ im aktuellen Verzeichnis.
+
+=item B<--bind-address> <I<IP-Adresse>>
+
+Angabe der IP-Adresse, unter welcher die Dienste lauschen
+sollen.
+
+=item B<--max-childs> <I<maximale Anzahl der Kindprozesse>>
+
+Angabe der maximalen Anzahl der gestarteten Kindprozesse (Anzahl
+paralleler Verbindungen) fuer jeden Dienst. Standard ist 10.
+
+=item B<--user> <I<Benutzername>>
+
+Angabe eines alternativen Benutzers, unter welchem die Dienste laufen
+sollen. Standard ist nobody.
+
+=item B<--faketime-init-delta> <I<anfaengliche Zeitdifferenz>>
+
+Angabe der anfaenglichen Zeitdifferenz in Sekunden (positiv oder
+negativ) - relativ zum aktuellen Datum bzw. zur aktuellen Uhrzeit. Diese
+wird anstelle des Wertes aus der Konfigurationsdatei verwendet.
+Hinweis: Die Zeitdifferenz wird von allen Diensten beruecksichtigt.
+Standard ist 0 (aktuelles Datum/aktuelle Uhrzeit).
+
+=item B<--faketime-auto-delay> <I<Zeitverzoegerung>>
+
+Angabe der Zeitverzoegerung in Sekunden, nach welcher die Zeitdifferenz
+regelmaessig entsprechend dem bei B<--faketime-auto-incr>
+eingestellten Wert erhoeht oder verringert wird. Ein Wert von '0'
+schaltet diese Funktion ab.
+Standard ist 0 (ausgeschaltet).
+
+=item B<--faketime-auto-incr> <I<Schrittweite>>
+
+Angabe der Schrittweite in Sekunden, um welche die Zeit in
+regelmaessigen Abstaenden erhoeht oder verringert wird.
+Diese Option ist nur wirksam, wenn bei B<--faketime-auto-delay> die
+Zeitverzoegerung eingeschaltet ist (nicht auf '0' gesetzt).
+Standard ist 3600.
+
+=item B<--session> <I<Name der Sitzung>>
+
+Angabe eines alternativen Sitzungsnamens.
+Standard ist die Prozess-ID des Hauptprogramms.
+
+=item B<--pidfile> <I<PID-Datei>>
+
+Angabe einer alternativen PID-Datei.
+Standard ist /var/run/inetsim.pid.
+
+=back
+
+
+=head1 BEISPIELE
+
+Simulation mit Sitzungsnamen 'simtest5' starten
+
+	# inetsim --session simtest5
+
+Simulation mit Zeitsprung von einem Tag in die Zukunft nach jeweils 60 
+Sekunden starten
+
+	# inetsim --faketime-auto-delay 60 --faketime-auto-incr 86400
+
+dito, jedoch mit Zeitsprung in die Vergangenheit
+
+	# inetsim --faketime-auto-delay 60 --faketime-auto-incr -86400
+
+
+=head1 BENOETIGT
+
+Perl 5, Getopt::Long, Net::Server, Net::DNS, IO::Handle, IO::Socket,
+IO::Select, IPC::Shareable, Digest::SHA, File::Copy, MIME::Base64,
+IPTables::IPv4::IPQueue (optional)
+
+
+=head1 AUTOREN
+
+S<Matthias Eckert> E<lt>S<me@inetsim.org>E<gt>, 
+S<Thomas Hungenberg> E<lt>S<th@inetsim.org>E<gt>
+
+=cut
